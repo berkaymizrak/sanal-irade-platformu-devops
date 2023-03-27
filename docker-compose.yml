@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  reverseproxy:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - static-data:/srv/public
+    ports:
+      - 80:80
+    networks:
+      - network
+
+networks:
+  network:
+    external:
+      name: nginx_network
+
+volumes:
+  static-data:
